@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -11,5 +12,15 @@ import {NgOptimizedImage} from "@angular/common";
   styleUrl: './navigation-bar.component.scss'
 })
 export class NavigationBarComponent {
+
+  constructor(private router: Router) { }
+
+trimiterePaginaCreareCont(): void {
+  this.router.navigate(['/creareCont']);
+}
+
+trimiterePaginaLogare(): void {
+    this.router.navigate(['/logare']);
+}
 
 }

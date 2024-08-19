@@ -1,21 +1,26 @@
-<div>
-  <form (ngSubmit)="onSubmit()">
-    <div>
-      <label for="username">Username</label>
-      <input type="text" id="username" [(ngModel)]="form.username" name="username" required>
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" id="email" [(ngModel)]="form.email" name="email" required>
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" [(ngModel)]="form.password" name="password" required>
-    </div>
-    <button type="submit">Sign Up</button>
-  </form>
-
-  <div>
-    <h2 *ngIf="form.username.length < 4">Username mai mic de 4 caractere</h2>
+<div class="header">
+<img src="assets/logoAir.png" width="80" height="60" alt="image">
   </div>
+<div class="pagCreareCont">
+  <form (ngSubmit)="onSubmit()">
+  <table>
+  <tbody>
+<tr>
+  <td colspan="2"><h2 id="creareCont">Creeaza un cont</h2></td>
+</tr>
+  <tr>
+    <td><input type="text" placeholder="Username" [(ngModel)]="form.username" name="username" required></td>
+  </tr>
+  <tr>
+    <td><input type="email" placeholder="Email" [(ngModel)]="form.email" name="email" required></td>
+  </tr>
+  <tr>
+    <td><input type="password" placeholder="Parola"[(ngModel)]="form.password" name="password" required></td>
+  </tr>
+  <tr>
+    <td colspan="2"><button type="submit" class="butoaneCreareLogare"><a href="">Creare cont</a></button></td>
+  </tr>
+  </tbody>
+</table>
+  </form>
 </div>
