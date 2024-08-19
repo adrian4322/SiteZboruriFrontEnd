@@ -1,0 +1,45 @@
+.Pagina {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.parteaStanga {
+  margin-left: 5%;
+}
+
+.slogan {
+  font-family: Calibri, sans-serif;
+  font-size: 40px;
+  color: #333333;
+  line-height: 8px;
+}
+
+.parteaDreapta {
+  margin-right: 10%;
+  flex-shrink: 0;
+}
+
+.butoaneDeStart {
+  cursor: pointer;
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+  position: relative;
+  background-color: rgba(78, 209, 232, 0.71);
+  overflow: hidden;
+
+  a {
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+
+}

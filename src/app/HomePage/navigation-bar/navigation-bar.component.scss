@@ -1,0 +1,66 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav-list {
+  margin-left: 5%;
+}
+
+
+.butoaneCreareLogare {
+  cursor: pointer;
+  float: right;
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+  position: relative;
+  background-color: rgba(78, 209, 232, 0.71);
+  overflow: hidden;
+
+    a {
+      color: #ffffff;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+  }
+
+
+#navbar-hr {
+  border: 1px solid #e7dede;
+  opacity: 60%;
+  margin-top: 0.5%;
+  width: 100%;
+}
+
+li {
+  float: left;
+  color: rgba(65, 66, 66, 0.78);
+  font-family: Calibri, serif;
+  font-size: 20px;
+  font-weight: bold;
+
+  a{
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+    &:visited {
+      color: rgba(65, 66, 66, 0.78);
+    }
+
+    &:hover {
+      background-color: rgba(236, 230, 230, 0.53);
+      border-radius: 20px;
+    }
+
+  }
+
+}
