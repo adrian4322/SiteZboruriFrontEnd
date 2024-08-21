@@ -27,14 +27,12 @@ export class PaginaCreareContComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
-    this.authService.signup(this.form).subscribe({
-      next: data => {
+    this.authService.creareCont(this.form).subscribe({
+      next: (data: any) => {
         console.log('Succes:', data);
         this.succesLogare = true;
-        this.router.navigate(['']);
+        this.router.navigate(['/cautareBilete']);
       }
     });
-
   }
-
 }

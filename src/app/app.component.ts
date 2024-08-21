@@ -3,6 +3,7 @@ import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {NavigationBarComponent} from "./HomePage/navigation-bar/navigation-bar.component";
 import {BackgroundComponent} from "./HomePage/background/background.component"
 import {NgIf} from "@angular/common";
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,7 +13,7 @@ import {NgIf} from "@angular/common";
 })
 export class AppComponent {
   title = 'FrontEnd';
-  isHomePage: boolean = true;
+  isHomePage: boolean = false; 
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
@@ -21,5 +22,5 @@ export class AppComponent {
       }
     });
   }
-
 }
+

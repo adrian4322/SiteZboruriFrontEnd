@@ -9,15 +9,18 @@
         <td colspan="2"><h2 id="creareCont">Logheaza-te in cont</h2></td>
       </tr>
       <tr>
-        <td><input type="email" placeholder="Email" [(ngModel)]="form.email" name="email" required></td>
+        <td><input type="username" placeholder="Username" [(ngModel)]="form.username" name="username" required></td>
       </tr>
       <tr>
         <td><input type="password" placeholder="Parola"[(ngModel)]="form.password" name="password" required></td>
       </tr>
       <tr>
-        <td colspan="2"><button type="submit" class="butoaneCreareLogare"><a href="">Creare cont</a></button></td>
+        <td colspan="2"><button type="submit" class="butoaneCreareLogare">Logare cont</button></td>
       </tr>
       </tbody>
     </table>
   </form>
 </div>
+
+
+<router-outlet></router-outlet>
