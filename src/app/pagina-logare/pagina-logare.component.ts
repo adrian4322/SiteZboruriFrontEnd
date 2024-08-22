@@ -3,6 +3,7 @@ import { Router, RouterOutlet } from "@angular/router";
 import { AuthService } from "../pagina-creare-cont/auth.service";
 import { FormsModule } from "@angular/forms";
 import { NgIf } from "@angular/common";
+import { error } from 'console';
 
 @Component({
   selector: 'app-pagina-logare',
@@ -22,6 +23,8 @@ export class PaginaLogareComponent implements OnInit {
     password: ''
   };
 
+  mesaj: string  = '';
+
   constructor(private authService: AuthService, private router: Router) { }
 
    ngOnInit(){
@@ -37,7 +40,10 @@ export class PaginaLogareComponent implements OnInit {
           this.authService.salvareToken(token);
           this.router.navigate(['/cautareBilete']);
         }
-      }
-    })
+      },
+      error: () => {
+        this.mesaj = 'Username sau parola incorecte';
+        }
+    });
   }
 }

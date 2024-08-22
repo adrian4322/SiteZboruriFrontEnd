@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {Router} from '@angular/router';
+import { AuthService } from '../../pagina-creare-cont/auth.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -13,13 +14,17 @@ import {Router} from '@angular/router';
 })
 export class NavigationBarComponent {
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
 trimiterePaginaCreareCont(): void {
   this.router.navigate(['/creareCont']);
 }
 
 trimiterePaginaLogare(): void {
+  if(this.authService.esteConectat()){
+    this.router.navigate(['/cautareBilete']);
+    return;
+  }
     this.router.navigate(['/logare']);
 }
 

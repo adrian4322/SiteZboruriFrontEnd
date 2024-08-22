@@ -16,11 +16,11 @@ constructor(private http: HttpClient,@Inject(PLATFORM_ID) platfromId: Object) {
 }
 
 logare(logareRequest: any): Observable<any> {
-  return this.http.post("${this.baseUrl/login", logareRequest);
+  return this.http.post(`${this.baseUrl}/logare`, logareRequest);
 }
 
-creareCont(creareContRequest : any): Observable <any> {
-  return this.http.post("${this.baseUrl}/creareCont", creareContRequest);
+creareCont(creareContRequest: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/creareCont`, creareContRequest);
 }
 
 salvareToken(token: string): void {

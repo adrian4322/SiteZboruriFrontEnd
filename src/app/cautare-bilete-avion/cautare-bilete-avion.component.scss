@@ -1,0 +1,45 @@
+.drop {
+    position: relative;
+    display: inline-block;
+
+    &:hover{
+        cursor: pointer;
+    }
+
+    #id2 {
+        position: absolute;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        width: 230px;
+        padding: 10px;
+        z-index: 2;
+        border: 2px solid black;
+    }
+
+    button {
+        margin: 0 5px;
+    }
+}
+
+#id1 {
+    margin: auto;
+    position: absolute;
+    top: 30%;
+    font-size: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    border-radius: 6px;
+
+    input {
+        border: 2px solid black;
+        border-radius: 8px;
+        height: 28px;
+    }
+
+td {
+    padding: 0px 30px;
+}
+
+}

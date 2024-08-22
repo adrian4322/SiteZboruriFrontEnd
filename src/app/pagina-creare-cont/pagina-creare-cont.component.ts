@@ -26,7 +26,36 @@ export class PaginaCreareContComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  mesajUsername: string = '';
+  mesajEmail: string = '';
+  mesajParola: string = '';
+  eroare: boolean = false;
+
   onSubmit(): void {
+    if(this.form.username.length == 0){
+      this.mesajUsername = 'Username-ul nu poate fi gol!';
+      this.eroare = true;
+    }
+    else
+     this.mesajUsername = '';
+
+    if(this.form.email.length == 0){
+      this.mesajEmail = 'Email-ul nu poate fi gol!';
+      this.eroare = true;
+    }
+    else
+      this.mesajEmail = '';
+
+    if(this.form.password.length < 5){
+      this.mesajParola = 'Parola trebuie sa aiba cel putin 5 caractere!';
+      this.eroare = true;
+    }
+    else
+       this.mesajParola = '';
+
+    if(this.eroare)
+      return;
+
     this.authService.creareCont(this.form).subscribe({
       next: (data: any) => {
         console.log('Succes:', data);
