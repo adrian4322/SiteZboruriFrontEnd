@@ -41,8 +41,13 @@
                 </td>
             </tr>
             <tr>
-                <td ><input type="text"  placeholder="Plecare din"></td>
-                <td ><input type="text"  placeholder="Aterizare in"></td>
+                <td ><app-aeropoarte 
+                    (aeroportSelectat)="onDepartureAirportSelected($event)">
+                </app-aeropoarte>
+                </td>
+                <td ><app-aeropoarte
+                    (aeroportSelectat)="onArrivalAirportSelected($event)">
+                </app-aeropoarte></td>
                 <td >
                     <mat-form-field>
                                <mat-label>Data plecarii</mat-label>

@@ -1,0 +1,13 @@
+<div>
+    <input type="text"
+    placeHolder="Plecare din"
+    [(ngModel)]="valoareInput"    
+    (input) = "inputCautareAeroport($event)"
+    (focus)="afisareAeropoarte = true"
+    >
+    <div *ngIf="afisareAeropoarte" class="meniuAeropoarte">
+        <div *ngFor="let aeroport of aeropoarteFiltrate" (click)="selectAeroport(aeroport)">
+            <p>{{aeroport.city}}, {{aeroport.country}}</p>
+        </div>
+    </div>
+</div>

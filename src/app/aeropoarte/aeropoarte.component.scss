@@ -1,0 +1,25 @@
+.meniuAeropoarte {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 175px;
+    font-size: 10px;
+    z-index: 1000;
+  
+    div {
+      padding: 10px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  
+    p {
+      margin: 0;
+    }
+  }
+  
