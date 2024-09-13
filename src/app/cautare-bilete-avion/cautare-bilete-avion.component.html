@@ -1,12 +1,21 @@
-<div>
-    <form>
+<div id="bodyCautareBilete">
+    <form (ngSubmit)="onSubmit()">
         <table id="id1">
             <tr>
-                <td><input type="radio" name="tip" (click)="schimbaValoareIntors()"> Dus</td>
-                <td><input type="radio" name="tip" (click)="schimbaValoareDusIntors()"> Dus-intors</td>
-                <td><div class="drop">
-                    <p (click)="afisareMeniuPasageri()">Pasageri: {{total}} </p>
-                    <div *ngIf="afisare" class="dropContinut">
+                <td>
+                    <label class="butonRadio">
+                        <input type="radio" name="tip" (click)="schimbaValoareIntors()"> Dus 
+                    </label>
+                </td>
+                <td>
+                    <label class="butonRadio">
+                        <input type="radio" name="tip" (click)="schimbaValoareDusIntors()"> Dus-intors
+                    </label>
+                </td>
+                <td>
+                    <div #dropdown class="drop">
+                        <p (click)="afisareMeniuPasageri()">Pasageri: {{total}} ↓</p>
+                    <div *ngIf="afisare" class="dropContinut" >
                         <table id="id2">
                             <tr>
                                 <td>
@@ -41,12 +50,12 @@
                 </td>
             </tr>
             <tr>
-                <td ><app-aeropoarte 
-                    (aeroportSelectat)="onDepartureAirportSelected($event)">
+                <td ><app-aeropoarte
+                    (aeroportSelectat)="aeroportDusSelectat($event)">
                 </app-aeropoarte>
                 </td>
-                <td ><app-aeropoarte
-                    (aeroportSelectat)="onArrivalAirportSelected($event)">
+                <td><app-aeropoarte
+                    (aeroportSelectat)="aeroportIntorsSelectat($event)">
                 </app-aeropoarte></td>
                 <td >
                     <mat-form-field>
@@ -64,7 +73,11 @@
                                       <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                  </td>
+                 <td>
+                    <button type="submit">Submit</button>
+                 </td>
             </tr>
         </table>
     </form>
 </div>
+<router-outlet></router-outlet>

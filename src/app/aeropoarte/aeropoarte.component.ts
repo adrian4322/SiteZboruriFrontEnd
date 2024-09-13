@@ -47,7 +47,7 @@ export class AeropoarteComponent implements OnInit {
   selectAeroport(aeroport: any): void {
     this.valoareInput = `${aeroport.city}, ${aeroport.country}`;
     this.afisareAeropoarte = false;
-    this.aeroportSelectat.emit(aeroport.code);
+    this.aeroportSelectat.emit(aeroport.city);
   }
   
   @HostListener('document:click', ['$event'])

@@ -13,7 +13,6 @@
         width: 230px;
         padding: 10px;
         z-index: 2;
-        border: 2px solid black;
     }
 
     button {
@@ -21,19 +20,35 @@
     }
 }
 
+#bodyCautareBilete {
+    background-image: url("../../assets/fundalCautareBilete.jpg");
+    height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 #id1 {
     margin: auto;
     position: absolute;
     top: 30%;
     font-size: 20px;
     left: 50%;
+    height: 180px;
     transform: translate(-50%, -50%);
     background-color: rgb(255, 255, 255);
-    border: 1px solid black;
     border-radius: 6px;
 
+
+    .butonRadio {
+        display: flex;
+        align-items: center;
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+    }
+    
+
     input {
-        border: 2px solid black;
         border-radius: 8px;
         height: 28px;
     }
