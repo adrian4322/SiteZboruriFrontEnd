@@ -1,16 +1,18 @@
 <div class="Pagina">
-  <div class="parteaStanga">
-    <div class="slogan">
-      <h2>Nu lasa banii si timpul</h2>
-      <h2>sa zboare ✈️</h2>
-      <div id="textSlogan">
-        <p>Apasa pe butonul de mai</p>
-        <p>jos ca sa incepem calatoria</p>
+    <app-navigation-bar></app-navigation-bar> 
+    <div class="parteaStanga">
+      <div class="slogan">
+        <p>Nu lasa banii si timpul</p>
+        <p>sa zboare ✈️</p>
+        <div id="textSlogan">
+          <p>Apasa pe butonul de mai</p>
+          <p>jos ca sa incepem calatoria</p>
+        </div>
+        <button class="butoaneDeStart" (click)="creareContPagina()">Hai sa incepem</button>
       </div>
-      <button class="butoaneDeStart" (click)="creareContPagina()">Hai sa incepem</button>
+    </div>
+    <div class="parteaDreapta">
+      <spline-viewer id="avion3D" url="https://prod.spline.design/yWuRYNcYjbzVpjWO/scene.splinecode"></spline-viewer>
     </div>
   </div>
-  <div class="parteaDreapta">
-    <img src="assets/avion.png" width="800" height="800" alt="image">
-  </div>
-</div>
+  <router-outlet></router-outlet>

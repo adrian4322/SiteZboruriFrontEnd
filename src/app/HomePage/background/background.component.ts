@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
+import {NgOptimizedImage, NgIf} from "@angular/common";
 import {RouterLink, Router, RouterOutlet} from "@angular/router";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 
 
 @Component({
@@ -9,10 +11,12 @@ import {RouterLink, Router, RouterOutlet} from "@angular/router";
   imports: [
     NgOptimizedImage,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    NavigationBarComponent
   ],
   templateUrl: './background.component.html',
-  styleUrl: './background.component.scss'
+  styleUrl: './background.component.scss',
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class BackgroundComponent {
 

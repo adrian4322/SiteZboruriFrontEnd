@@ -9,6 +9,15 @@ ul {
   margin-left: 5%;
 }
 
+.body {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 1000; 
+  padding: 10px 0; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+}
 
 .butoaneCreareLogare {
   cursor: pointer;
@@ -19,25 +28,17 @@ ul {
   margin-right: 10px;
   border-radius: 20px;
   border: 1px solid #ffffff;
+  margin-right: 50px;
   position: relative;
-  background-color: rgba(78, 209, 232, 0.71);
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border-radius: 8px;
+  border: 0;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-family: Phantomsans, sans-serif;
   overflow: hidden;
-
-    a {
-      color: #ffffff;
-      font-size: 18px;
-      text-decoration: none;
-    }
-
   }
-
-
-#navbar-hr {
-  border: 1px solid #e7dede;
-  opacity: 60%;
-  margin-top: 0.5%;
-  width: 100%;
-}
 
 li {
   float: left;

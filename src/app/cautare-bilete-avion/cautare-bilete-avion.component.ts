@@ -3,11 +3,12 @@ import { NgIf } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterOutlet } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { AeropoarteComponent } from '../aeropoarte/aeropoarte.component';
-import {HttpHeaders, HttpClient} from "@angular/common/http"
+import {HttpHeaders, HttpClient} from "@angular/common/http";
+import { forkJoin } from 'rxjs'; // Import forkJoin
 
 @Component({
   selector: 'app-cautare-bilete-avion',
@@ -20,15 +21,14 @@ import {HttpHeaders, HttpClient} from "@angular/common/http"
     MatDatepickerModule,
     AeropoarteComponent,
     RouterOutlet,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './cautare-bilete-avion.component.html',
   styleUrls: ['./cautare-bilete-avion.component.scss']
 })
 export class CautareBileteAvionComponent {
 
-constructor(private router: Router, private http: HttpClient){}
-
+constructor(private router: Router, private http: HttpClient, private datePipe : DatePipe){}
 
   adulti: number = 0;
   tineri: number = 0;
@@ -40,6 +40,9 @@ constructor(private router: Router, private http: HttpClient){}
   aeroportIntors: string = '';
   aeroportIdDus : any = '';
   aeroportIdAterizare : any = '';
+  dataDus : any = '';
+  dataIntors : any = '';
+  data : any = [];
 
   @ViewChild('dropdown') dropdown: any;
 
@@ -104,31 +107,49 @@ constructor(private router: Router, private http: HttpClient){}
     }
   }
 
-  onSubmit() : void {
-    const urlDus = `${this.apiUrlIdAeroport}${this.aeroportDus}`;
-    const urlAterizare = `${this.apiUrlIdAeroport}${this.aeroportIntors}`;
+  
 
-    this.aeroportIdDus = this.http.get<any>(urlDus, { headers: this.headers}).subscribe(
-      response => {
-        this.aeroportIdDus = response.data[0].id;
-      }
-    );
-
-    this.aeroportIdAterizare = this.http.get<any>(urlAterizare, { headers : this.headers}).subscribe(
-      response => {
-        this.aeroportIdAterizare = response.data[0].id;
-      }
-    )
-
-    this.router.navigate(['/rezultateCautare']);
-  }
 
   private apiUrlIdAeroport = 'https://skyscanner80.p.rapidapi.com/api/v1/flights/auto-complete?query=';
   private headers = new HttpHeaders({
     'x-rapidapi-key': '2ddb2ae3efmsh396fe59739382a7p1e24c1jsn39c9223568fc',
     'x-rapidapi-host': 'skyscanner80.p.rapidapi.com'
-  })
+  });
 
+  onSubmit() : void {
+    const dataFormatata = this.datePipe.transform(this.dataDus, 'yyyy-MM-dd');
+    
+    const urlDus = `${this.apiUrlIdAeroport}${this.aeroportDus}`;
+    const urlAterizare = `${this.apiUrlIdAeroport}${this.aeroportIntors}`;
+    
+    forkJoin({
+      aeroportDus: this.http.get<any>(urlDus, { headers: this.headers }),
+      aeroportAterizare: this.http.get<any>(urlAterizare, { headers: this.headers })
+    }).subscribe(results => {
+      this.aeroportIdDus = results.aeroportDus.data[0].id;
+      this.aeroportIdAterizare = results.aeroportAterizare.data[0].id;
 
+      if (!this.dusIntors) {
+        const inceputUrlNumaiDus = "https://skyscanner80.p.rapidapi.com/api/v1/flights/search-one-way?fromId=";
+        const urlNumaiDus = `${inceputUrlNumaiDus}${this.aeroportIdDus}&toId=${this.aeroportIdAterizare}&departDate=${dataFormatata}&adults=${this.adulti}&children=${this.copii}&cabinClass=economy&currency=RON`;
+
+        console.log(urlNumaiDus);
+        
+        this.data = this.http.get<any>(urlNumaiDus, { headers : this.headers}).subscribe(
+          response => {
+            this.data = response.data;
+            console.log(response);
+          }
+        );
+      } 
+      
+      else {
+      
+      }
+
+      this.router.navigate(['/rezultateCautare']);
+    }
+  );
+}
 
 }
