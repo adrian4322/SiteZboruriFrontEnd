@@ -1,1 +1,72 @@
-<p>rezultat-cautare works!</p>
+<div class="loader-wrapper" *ngIf="seIncarcaPagina">
+  <span class="loader"></span>
+</div>
+
+<div class="body" *ngIf="!seIncarcaPagina">
+  <div class="header">
+  </div>
+
+  <div class="Filtre">
+    <div class="sectiuneFiltre">
+      <h3>Filtre</h3>
+      <div class="optiuniEscala" *ngIf="!zborDirect && !zborCuEscala && !zborCuMinimDouaEscale">
+      <p>Escale</p>
+        <div class="optiuneFiltre">
+          <input type="checkbox"  id="fara-escala" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
+          <label for="fara-escala" >Fără escală</label>
+        </div>
+        <div class="optiuneFiltre">
+          <input type="checkbox" id="1-escala" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
+          <label for="1-escala">1 escală</label>
+        </div>
+        <div class="optiuneFiltre">
+          <input type="checkbox" id="2-plus-escalas" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
+          <label for="2-plus-escalas">2 sau mai multe escale</label>
+        </div>
+      </div>
+
+      <div class="optiuniEscala" *ngIf="zborDirect || zborCuEscala || zborCuMinimDouaEscale">
+        <p>Escale</p>
+          <div class="optiuneFiltre" *ngIf="zborDirect">
+            <input type="checkbox"  id="fara-escala" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
+            <label for="fara-escala" >Fără escală</label>
+          </div>
+          <div class="optiuneFiltre"  *ngIf="zborCuEscala">
+            <input type="checkbox" id="1-escala" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
+            <label for="1-escala">1 escală</label>
+          </div>
+          <div class="optiuneFiltre"  *ngIf="zborCuMinimDouaEscale">
+            <input type="checkbox" id="2-plus-escalas" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
+            <label for="2-plus-escalas">2 sau mai multe escale</label>
+          </div>
+        </div>
+
+        </div>
+
+    <div class="zboruri">
+      <div class="zbor" *ngFor="let zbor of dataFiltrata.slice(0,10)">
+        <div class="zbor-info">
+          <div class="zbor-detalii">
+            <span class="timp">{{ zbor.legs[0].departure }}</span>
+            <span class="locatie">{{ zbor.legs[0].origin.city }}</span><br>
+          </div>
+          <div class="zbor-sageata">⟶</div>
+          <div class="zbor-detalii">
+            <span class="timp">{{ zbor.legs[0].arrival }}</span>
+            <span class="locatie">{{ zbor.legs[0].destination.city }}</span>
+          </div>
+          <div class="zbor-durata">
+            <p>{{ zbor.legs[0].duration }}</p>
+            <p *ngIf="zbor.legs[0].segments.length == 1">Zbor direct</p>
+            <p *ngIf="zbor.legs[0].segments.length == 2">{{zbor.legs[0].segments.length - 1}} escală</p>
+            <p *ngIf="zbor.legs[0].segments.length > 2">{{zbor.legs[0].segments.length - 1}} escale</p>
+            <p>{{ zbor.legs[0].segments[0].marketingCarrier.name }}</p>
+          </div>
+        </div>
+        <div class="zbor-pret">
+          <div class="pretul">{{ zbor.price.formatted }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

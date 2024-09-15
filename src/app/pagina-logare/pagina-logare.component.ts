@@ -3,7 +3,6 @@ import { Router, RouterOutlet } from "@angular/router";
 import { AuthService } from "../pagina-creare-cont/auth.service";
 import { FormsModule } from "@angular/forms";
 import { NgIf } from "@angular/common";
-import { error } from 'console';
 
 @Component({
   selector: 'app-pagina-logare',
@@ -18,6 +17,10 @@ import { error } from 'console';
 })
 export class PaginaLogareComponent implements OnInit {
 
+public numeUtilizator: string = '';
+
+ seIncarcaPagina: boolean = true;
+
   form: any = {
     username: '',
     password: ''
@@ -27,10 +30,15 @@ export class PaginaLogareComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-   ngOnInit(){
-    if(this.authService.esteConectat())
+  ngOnInit() {
+    if (this.authService.esteConectat()) {
       this.router.navigate(['/cautareBilete']);
-   } 
+      return false;
+    }
+    this.seIncarcaPagina = false;
+    return true;
+  }
+
 
   onSubmit(): void {
     this.authService.logare(this.form).subscribe({
@@ -38,6 +46,7 @@ export class PaginaLogareComponent implements OnInit {
         const token = data.token;
         if(token) {
           this.authService.salvareToken(token);
+          this.numeUtilizator = this.form.username;
           this.router.navigate(['/cautareBilete']);
         }
       },

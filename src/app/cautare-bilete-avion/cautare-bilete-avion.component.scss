@@ -1,6 +1,8 @@
 .drop {
     position: relative;
     display: inline-block;
+    margin-top:10px;
+    transition: width 3s linear 3s;
 
     &:hover{
         cursor: pointer;
@@ -20,8 +22,29 @@
     }
 }
 
+mat-form-field {
+    height: 70px;
+}
+
+#butonSubmit {
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 1px solid #000000;
+    overflow: hidden;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    margin-bottom: 40px;
+
+  }
+
+
 #bodyCautareBilete {
-    background-image: url("../../assets/fundalCautareBilete.jpg");
+    background-image: url("../../assets/backgroundHomePage.jpg");
     height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -33,7 +56,8 @@
     top: 30%;
     font-size: 20px;
     left: 50%;
-    height: 180px;
+    height: 100px;
+    border: 1px solid black;
     transform: translate(-50%, -50%);
     background-color: rgb(255, 255, 255);
     border-radius: 6px;

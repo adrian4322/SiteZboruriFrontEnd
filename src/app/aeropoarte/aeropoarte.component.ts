@@ -20,8 +20,9 @@ export class AeropoarteComponent implements OnInit {
   aeropoarteFiltrate: any[] = [];
   afisareAeropoarte: boolean = false;
   valoareInput: string = '';
+  private debounceTimer: any;
 
-  constructor (private http: HttpClient, private elem: ElementRef) {}
+constructor (private http: HttpClient, private elem: ElementRef) {}
 
 @Output() aeroportSelectat = new EventEmitter<string>();
 
@@ -32,20 +33,25 @@ export class AeropoarteComponent implements OnInit {
   }
 
   inputCautareAeroport(event: any): void {
-    const query = event.target.value.toLowerCase();
-    if (query) {
-      this.aeropoarteFiltrate = this.aeropoarte.filter((aeroport: any) => 
-        aeroport.city.toLowerCase().startsWith(query) || 
-        aeroport.country.toLowerCase().startsWith(query)
-      );
-    } else {
-      this.aeropoarteFiltrate = []; 
-    }
-}
+    clearTimeout(this.debounceTimer); 
+  
+    this.debounceTimer = setTimeout(() => {
+      const query = event.target.value.toLowerCase();
+      if (query) {
+        this.aeropoarteFiltrate = this.aeropoarte.filter((aeroport: any) => 
+          aeroport.city.toLowerCase().startsWith(query) || 
+          aeroport.country.toLowerCase().startsWith(query)
+        );
+      } else {
+        this.aeropoarteFiltrate = []; 
+      }
+    }, 200); 
+  }
+  
 
 
   selectAeroport(aeroport: any): void {
-    this.valoareInput = `${aeroport.city}, ${aeroport.country}`;
+    this.valoareInput = `${aeroport.city},${aeroport.country}`;
     this.afisareAeropoarte = false;
     this.aeroportSelectat.emit(aeroport.city);
   }

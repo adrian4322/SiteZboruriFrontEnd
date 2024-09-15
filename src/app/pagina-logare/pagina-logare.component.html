@@ -1,6 +1,5 @@
-<div class="header">
-  <img src="assets/logoAir.png" width="80" height="60" alt="image">
-</div>
+<div id="body" *ngIf="!seIncarcaPagina">
+<img src="assets/logo1.png" id="logo" width="150" height="100" alt="image">
 <div class="pagCreareCont">
   <form (ngSubmit)="onSubmit()">
     <table>
@@ -25,5 +24,6 @@
       </tbody>
     </table>
   </form>
+</div>
 </div>
 <router-outlet></router-outlet>

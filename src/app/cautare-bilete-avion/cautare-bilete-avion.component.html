@@ -1,10 +1,10 @@
-<div id="bodyCautareBilete">
+<div id="bodyCautareBilete" >
     <form (ngSubmit)="onSubmit()">
         <table id="id1">
             <tr>
                 <td>
                     <label class="butonRadio">
-                        <input type="radio" name="tip" (click)="schimbaValoareIntors()"> Dus 
+                        <input type="radio" [(ngModel)]="dusIntors" name="tip" (click)="schimbaValoareIntors()"> Dus 
                     </label>
                 </td>
                 <td>
@@ -57,7 +57,7 @@
                 </td>
                 <td>
                     <app-aeropoarte 
-                        (aeroportSelectat)="aeroportIntorsSelectat($event)">
+                        (aeroportSelectat)="aeroportAterizareSelectat($event)">
                     </app-aeropoarte>
                 </td>
                 <td>
@@ -77,10 +77,10 @@
                     </mat-form-field>
                 </td>
                 <td>
-                    <button type="submit">Submit</button>
+                    <button id="butonSubmit" type="submit">Cauta</button>
                 </td>
             </tr>
         </table>
     </form>
-</div>
+  </div>
 <router-outlet></router-outlet>
