@@ -45,6 +45,7 @@ public numeUtilizator: string = '';
       next: (data) => {
         const token = data.token;
         if(token) {
+          this.authService.salvareUsername(this.form.username);
           this.authService.salvareToken(token);
           this.numeUtilizator = this.form.username;
           this.router.navigate(['/cautareBilete']);

@@ -1,49 +1,66 @@
 <div class="loader-wrapper" *ngIf="seIncarcaPagina">
   <span class="loader"></span>
 </div>
+<div class="header" *ngIf="!seIncarcaPagina">
+  <div id="numeUtilizator">
+    <span>  <img style="margin-left:20px; margin-top: 10px;" src="../../../assets/logoBun.png" width="100" height="60" alt="image">
+    </span>
+    <span><img src='../../assets/iconitaUtilizator.png' style="margin-left: 20px; margin-top: 10px;" width="70" height="60"></span><span>{{ username }} </span>
+  </div>
+</div>
 
 <div class="body" *ngIf="!seIncarcaPagina">
-  <div class="header">
+  <div class="tabel">
+    <app-tabel-cautare-zboruri></app-tabel-cautare-zboruri>
   </div>
-
   <div class="Filtre">
     <div class="sectiuneFiltre">
       <h3>Filtre</h3>
       <div class="optiuniEscala" *ngIf="!zborDirect && !zborCuEscala && !zborCuMinimDouaEscale">
-      <p>Escale</p>
+        <p>Escale</p>
         <div class="optiuneFiltre">
-          <input type="checkbox"  id="fara-escala" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
-          <label for="fara-escala" >Fără escală</label>
+          <input type="checkbox" id="fara-escala" class="styled-checkbox" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
+          <label for="fara-escala">Fără escală</label>
         </div>
         <div class="optiuneFiltre">
-          <input type="checkbox" id="1-escala" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
+          <input type="checkbox" id="1-escala" class="styled-checkbox" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
           <label for="1-escala">1 escală</label>
         </div>
         <div class="optiuneFiltre">
-          <input type="checkbox" id="2-plus-escalas" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
+          <input type="checkbox" id="2-plus-escalas" class="styled-checkbox" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
           <label for="2-plus-escalas">2 sau mai multe escale</label>
         </div>
       </div>
-
+      
+  
       <div class="optiuniEscala" *ngIf="zborDirect || zborCuEscala || zborCuMinimDouaEscale">
         <p>Escale</p>
-          <div class="optiuneFiltre" *ngIf="zborDirect">
-            <input type="checkbox"  id="fara-escala" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
-            <label for="fara-escala" >Fără escală</label>
-          </div>
-          <div class="optiuneFiltre"  *ngIf="zborCuEscala">
-            <input type="checkbox" id="1-escala" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
-            <label for="1-escala">1 escală</label>
-          </div>
-          <div class="optiuneFiltre"  *ngIf="zborCuMinimDouaEscale">
-            <input type="checkbox" id="2-plus-escalas" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
-            <label for="2-plus-escalas">2 sau mai multe escale</label>
-          </div>
+        <div class="optiuneFiltre" *ngIf="zborDirect">
+          <input type="checkbox" id="fara-escala" class="styled-checkbox" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
+          <label for="fara-escala">Fără escală</label>
         </div>
-
+        <div class="optiuneFiltre" *ngIf="zborCuEscala">
+          <input type="checkbox" id="1-escala" class="styled-checkbox" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
+          <label for="1-escala">1 escală</label>
         </div>
+        <div class="optiuneFiltre" *ngIf="zborCuMinimDouaEscale">
+          <input type="checkbox" id="2-plus-escalas" class="styled-checkbox" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
+          <label for="2-plus-escalas">2 sau mai multe escale</label>
+        </div>
+      </div>
+    </div>
+  
 
     <div class="zboruri">
+      <div class="sortare" (click)="afisareOptiuniSortare()" >
+        <button class="dropbtn">Sortare dupa</button>
+        <div class="dropdown-content" *ngIf="afisareOptiuni">
+          <p class="optiune" (click)="sortareDupaPret()">Pret</p>
+          <p class="optiune" (click)="sortareDupaTimp()">Timp</p>
+          <p class="optiune" (click)="sortareDupaOraDePlecare()">Ora de plecare</p>
+        </div>
+      </div>
+
       <div class="zbor" *ngFor="let zbor of dataFiltrata.slice(0,10)">
         <div class="zbor-info">
           <div class="zbor-detalii">
@@ -70,3 +87,4 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>

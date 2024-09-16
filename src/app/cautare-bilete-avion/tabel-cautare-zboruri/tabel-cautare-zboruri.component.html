@@ -1,0 +1,83 @@
+<form (ngSubmit)="onSubmit()">
+    <table id="id1">
+        <tr>
+            <td>
+                <label class="butonRadio">
+                    <input type="radio" [(ngModel)]="dusIntors" name="tip" (click)="schimbaValoareIntors()"> Dus 
+                </label>
+            </td>
+            <td>
+                <label class="butonRadio">
+                    <input type="radio" name="tip" (click)="schimbaValoareDusIntors()"> Dus-intors
+                </label>
+            </td>
+            <td>
+                <div #dropdown class="drop">
+                    <p (click)="afisareMeniuPasageri()">Pasageri: {{total}} ↓</p>
+                    <div *ngIf="afisare" class="dropContinut">
+                        <table id="id2">
+                            <tr>
+                                <td>
+                                    <p>Adulti {{adulti}} 
+                                        <button type="button" (click)="plusareAdulti()">+</button> 
+                                        <button type="button" (click)="scadereAdulti()">-</button>
+                                    </p>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Copii {{copii}} 
+                                        <button type="button" (click)="plusareCopii()">+</button> 
+                                        <button type="button" (click)="scadereCopii()">-</button>
+                                    </p>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Tineri {{tineri}} 
+                                        <button type="button" (click)="plusareTineri()">+</button> 
+                                        <button type="button" (click)="scadereTineri()">-</button>
+                                    </p>
+                                    <hr>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <app-aeropoarte
+                    (aeroportSelectat)="aeroportDusSelectat($event)">
+                </app-aeropoarte>
+            </td>
+            <td>
+                <app-aeropoarte 
+                    (aeroportSelectat)="aeroportAterizareSelectat($event)">
+                </app-aeropoarte>
+            </td>
+            <td>
+                <mat-form-field>
+                    <mat-label>Data plecarii</mat-label>
+                    <input [(ngModel)]="dataDus" matInput [matDatepicker]="pickerDus" name="dataDus">
+                    <mat-datepicker-toggle matIconSuffix [for]="pickerDus"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDus></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td *ngIf="dusIntors">
+                <mat-form-field>
+                    <mat-label>Data revenirii</mat-label>
+                    <input [(ngModel)]="dataIntors" matInput [matDatepicker]="pickerIntors" name="dataIntors">
+                    <mat-datepicker-toggle matIconSuffix [for]="pickerIntors"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerIntors></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td>
+                <button id="butonSubmit" type="submit">Cauta</button>
+            </td>
+        </tr>
+    </table>
+</form>

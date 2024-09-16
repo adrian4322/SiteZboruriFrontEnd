@@ -29,6 +29,15 @@ salvareToken(token: string): void {
   }
 }
 
+salvareUsername(username: string): void {
+  if(this.isBrowser)
+    localStorage.setItem('username', username);
+}
+
+getUsername(): string | null {
+  return this.isBrowser ? localStorage.getItem('username') : null;
+}
+
 getToken(): string | null {
   return this.isBrowser ? localStorage.getItem('authToken') : null;
 }

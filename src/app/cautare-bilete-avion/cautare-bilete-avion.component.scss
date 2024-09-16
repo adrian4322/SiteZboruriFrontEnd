@@ -1,84 +1,14 @@
-.drop {
-    position: relative;
-    display: inline-block;
-    margin-top:10px;
-    transition: width 3s linear 3s;
-
-    &:hover{
-        cursor: pointer;
-    }
-
-    #id2 {
-        position: absolute;
-        background-color: #f8f8f8;
-        border-radius: 8px;
-        width: 230px;
-        padding: 10px;
-        z-index: 2;
-    }
-
-    button {
-        margin: 0 5px;
-    }
-}
-
-mat-form-field {
-    height: 70px;
-}
-
-#butonSubmit {
-    cursor: pointer;
-    display: inline-block;
-    width: 100px;
-    height: 50px;
-    margin-top: 20px;
-    border-radius: 20px;
-    border: 1px solid #000000;
-    overflow: hidden;
-    text-align: center;
-    line-height: 50px;
-    font-size: 20px;
-    margin-bottom: 40px;
-
-  }
-
-
 #bodyCautareBilete {
-    background-image: url("../../assets/backgroundHomePage.jpg");
-    height: 100%;
+  background-image: url("../../assets/fundalCautareBilete.jpg");
+  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-#id1 {
-    margin: auto;
-    position: absolute;
-    top: 30%;
-    font-size: 20px;
-    left: 50%;
-    height: 100px;
-    border: 1px solid black;
-    transform: translate(-50%, -50%);
-    background-color: rgb(255, 255, 255);
-    border-radius: 6px;
 
-
-    .butonRadio {
-        display: flex;
-        align-items: center;
-        input[type="radio"] {
-            margin-right: 10px;
-        }
-    }
-    
-
-    input {
-        border-radius: 8px;
-        height: 28px;
-    }
-
-td {
-    padding: 0px 30px;
-}
-
+.tabel {
+  position: relative;
+  margin-left: 500px;
+  top:30%;
+  margin-right: auto;
 }

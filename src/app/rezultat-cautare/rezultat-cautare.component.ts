@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { TabelCautareZboruri } from "../cautare-bilete-avion/tabel-cautare-zboruri/tabel-cautare-zboruri.component";
+import { AuthService } from '../pagina-creare-cont/auth.service';
+import {  RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-rezultat-cautare',
@@ -13,11 +16,22 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
     NgFor,
     NgIf,
     DatePipe,
-    FormsModule
-  ]
+    FormsModule,
+    TabelCautareZboruri,
+    RouterOutlet
+]
 })
 export class RezultatCautareComponent implements OnInit {
 
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private datePipe: DatePipe,
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  username: string | null = '';
   data: any = [];
   dataFiltrata: any = [];
   aeroportDus: string = '';
@@ -27,11 +41,40 @@ export class RezultatCautareComponent implements OnInit {
   seIncarcaPagina: boolean = true;
   adulti: number = 0;
   copii: number = 0;
+  afisareOptiuni: boolean = false;
+  private headers = new HttpHeaders({
+    'x-rapidapi-key': '5261d28f31mshd3dd0c81ef9067ep1b8f36jsn94c2dc077390',
+    'x-rapidapi-host': 'skyscanner80.p.rapidapi.com'
+  });
 
   //optiuni filtre
   zborDirect: boolean = false;
   zborCuEscala: boolean = false;
   zborCuMinimDouaEscale: boolean = false;
+
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.aeroportDus = params['aeroportDus'];
+      this.aeroportAterizare = params['aeroportAterizare'];
+      this.dataDus = params['dataDus'];
+      this.dataIntors = params['dataIntors'];
+      this.adulti = params['adulti'];
+      this.copii = params['copii'];
+      this.username = this.authService.getUsername();
+
+      if (!this.aeroportDus || !this.aeroportAterizare || !this.dataDus || this.adulti === null || this.adulti === undefined) 
+        this.router.navigate(['/cautareBilete']);
+      else 
+        this.preluareDateZbor();
+      
+
+    });
+  }
+
+  afisareOptiuniSortare(): void {
+    this.afisareOptiuni = !this.afisareOptiuni;
+  }
 
   aplicaFiltru() {
     this.dataFiltrata = this.data.filter((zbor: any) => {
@@ -48,47 +91,31 @@ export class RezultatCautareComponent implements OnInit {
     });
 
     if (!this.zborDirect && !this.zborCuEscala && !this.zborCuMinimDouaEscale) {
-      this.dataFiltrata = this.data; 
+      this.dataFiltrata = this.data;
     }
-  }
 
-
-  private headers = new HttpHeaders({
-    'x-rapidapi-key': '2ddb2ae3efmsh396fe59739382a7p1e24c1jsn39c9223568fc',
-    'x-rapidapi-host': 'skyscanner80.p.rapidapi.com'
-  });
-
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private datePipe: DatePipe,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.aeroportDus = params['aeroportDus'];
-      this.aeroportAterizare = params['aeroportAterizare'];
-      this.dataDus = params['dataDus'];
-      this.dataIntors = params['dataIntors'];
-      this.adulti = params['adulti'];
-      this.copii = params['copii'];
-
-      if (!this.aeroportDus || !this.aeroportAterizare || !this.dataDus || this.adulti === null || this.adulti === undefined) 
-        this.router.navigate(['/cautareBilete']);
-      else 
-        this.preluareDateZbor();
-      
-
-    });
   }
 
 
   sortareDupaPret(): void {
-    this.data = this.data.itineraries.sort(
+    this.dataFiltrata = this.dataFiltrata.sort(
       (a: any, b: any) => a.price.raw - b.price.raw
     );
   }
+
+  sortareDupaTimp(): void {
+      this.dataFiltrata.sort((a: any, b: any) => {
+        return a.legs[0].durationInMinutes - b.legs[0].durationInMinutes;
+      });
+    }
+
+sortareDupaOraDePlecare(): void {
+  this.dataFiltrata.sort((a: any, b: any) => {
+    const [oraA, minutA] = a.legs[0].departure.split(':').map(Number);
+    const [oraB, minutB] = b.legs[0].departure.split(':').map(Number);  
+  return (oraA * 60 + minutA) - (oraB * 60 + minutB)
+});
+}
 
   formatareOraZbor(): void {
     for (const index in this.data) {
@@ -112,8 +139,10 @@ export class RezultatCautareComponent implements OnInit {
 
       this.http.get<any>(urlNumaiDus, { headers: this.headers }).subscribe(
         (response) => {
-          this.data = response.data;
-          this.sortareDupaPret();
+          this.data = response.data.itineraries.sort(
+            (a: any, b: any) => a.price.raw - b.price.raw
+          );
+          console.log(this.data);
           this.formatareOraZbor();
           this.aplicaFiltru(); 
           console.log(this.data);
@@ -129,8 +158,9 @@ export class RezultatCautareComponent implements OnInit {
 
       this.http.get<any>(urlDusIntors, { headers: this.headers }).subscribe(
         (response) => {
-          this.data = response.data;
-          this.sortareDupaPret();
+          this.data = response.data.itineraries.sort(
+            (a: any, b: any) => a.price.raw - b.price.raw
+          );
           this.formatareOraZbor();
           console.log(this.data);
           this.seIncarcaPagina = false;
