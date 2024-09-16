@@ -15,12 +15,5 @@ export class AppComponent {
   title = 'FrontEnd';
   isHomePage: boolean = false; 
 
-  constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.isHomePage = this.router.url === '/';
-      }
-    });
-  }
 }
 
