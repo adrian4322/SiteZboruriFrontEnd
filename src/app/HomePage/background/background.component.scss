@@ -2,15 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-    background-image: url("../../../assets/backgroundHomePage.jpg");
-  height: 100%;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
+  background-image: url("../../../assets/backgroundHomePage.jpg");
+  height: 100vh; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .parteaStanga {
-  margin-left: 5%;
+  margin-left: 5svw;
 }
 
 @font-face {
@@ -20,7 +20,7 @@ background-size: cover;
 
 .slogan {
   font-family: font1;
-  font-size: 80px;
+  font-size:4vw; 
   color: #000000;
   min-width: 100px;
   line-height: 8px;
@@ -28,17 +28,17 @@ background-size: cover;
   #textSlogan {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 2.5vw;
   }
 }
 
 .parteaDreapta {
-  margin-right: 10%;
+  margin-right: 10vw; 
 
-#avion3D {
-  height: 500px; 
-  width: 600px;
-}
+  #avion3D {
+    height: 40vh; 
+    width: 40vw; 
+  }
 
 }
 
@@ -56,8 +56,8 @@ background-size: cover;
   justify-content: center;
   line-height: 1em;
   max-width: 100%;
-  min-width: 140px;
-  padding: 19px 24px;
+  min-width: 5vw;
+  padding: 2vh 1.5vw;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
@@ -66,3 +66,48 @@ background-size: cover;
   cursor: pointer;
 }
 
+@media (max-width: 600px) {
+  spline-viewer {
+    height: 1vh;
+    width: 1vw;
+  }
+  
+.butoaneDeStart {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 5vw;
+  padding: 1vh 1vw;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+
+.slogan {
+  font-family: font1;
+  font-size:4vw; 
+  color: #000000;
+  min-width: 100px;
+  line-height: 8px;
+
+  #textSlogan {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 2.5vw;
+  }
+}
+}

@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener  } from '@angular/core';
+import { Component, ViewChild, HostListener, EventEmitter, Output  } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -21,8 +21,8 @@ import { forkJoin } from 'rxjs';
     MatDatepickerModule,
     AeropoarteComponent,
     RouterOutlet,
-    FormsModule,
-  ],
+    FormsModule
+    ],
   templateUrl: './tabel-cautare-zboruri.component.html',
   styleUrls: ['./tabel-cautare-zboruri.component.scss']
 })
@@ -33,7 +33,7 @@ export class TabelCautareZboruri {
   copii: number = 0;
   total: number = 0;
   afisare: boolean = false;
-  dusIntors: boolean = false;
+  dusIntors: boolean = true;
   aeroportDus: string = '';
   aeroportAterizare: string = '';
   dataDus: any = '';
@@ -42,6 +42,8 @@ export class TabelCautareZboruri {
   aeroportIdAterizare: any = '';
 
   @ViewChild('dropdown') dropdown: any;
+
+@Output() cautareZboruri : EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private router: Router, private http: HttpClient, private datePipe: DatePipe) { }
 
@@ -73,33 +75,50 @@ export class TabelCautareZboruri {
       this.afisare = false;
     }
   }
-
   onSubmit(): void {
+    if (!this.dusIntors) {
+      if (!this.dataDus || this.adulti < 1 || !this.aeroportDus || !this.aeroportAterizare) {
+        alert("Nu ai introdus toate datele pentru un zbor dus!");
+        return;
+      }
+    } 
+    else {
+      if (!this.dataDus || !this.dataIntors || this.adulti < 1 || !this.aeroportDus || !this.aeroportAterizare) {
+        alert("Nu ai introdus toate datele pentru un zbor dus-întors!");
+        return;
+      }
+    }
+  
     const dataFormatataDus = this.datePipe.transform(this.dataDus, 'yyyy-MM-dd');
-    const dataFormatataIntors = this.dataIntors ? this.datePipe.transform(this.dataIntors, 'yyyy-MM-dd') : null;
-    let dataCurenta = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-
-    if(dataFormatataDus != null && dataCurenta != null && dataFormatataDus < dataCurenta) {
+    const dataFormatataIntors = this.datePipe.transform(this.dataIntors, 'yyyy-MM-dd');
+    const dataCurenta = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  
+    if (dataFormatataDus && dataCurenta && dataFormatataDus < dataCurenta) {
       alert('Data de plecare nu poate fi mai mică decât data curentă');
       return;
     }
-
-    if (dataFormatataDus && dataFormatataIntors && dataFormatataDus > dataFormatataIntors) {
+  
+    if (this.dusIntors && dataFormatataDus && dataFormatataIntors && dataFormatataDus > dataFormatataIntors) {
       alert("Data de plecare nu poate fi mai mare decat data de intoarcere");
       return;
     }
-
+  
     const urlDus = `${this.apiUrlIdAeroport}${this.aeroportDus}`;
     const urlAterizare = `${this.apiUrlIdAeroport}${this.aeroportAterizare}`;
-
+  
     forkJoin({
       aeroportDus: this.http.get<any>(urlDus, { headers: this.headers }),
       aeroportAterizare: this.http.get<any>(urlAterizare, { headers: this.headers })
     }).subscribe(results => {
+      if (!results.aeroportDus.data.length || !results.aeroportAterizare.data.length) {
+        alert('Aeroporturile introduse nu au fost găsite!');
+        return;
+      }
+  
       this.aeroportIdDus = results.aeroportDus.data[0].id;
       this.aeroportIdAterizare = results.aeroportAterizare.data[0].id;
-
-      const queryParams = {
+  
+        const queryParams = {
         aeroportDus: this.aeroportIdDus,
         aeroportAterizare: this.aeroportIdAterizare,
         dataDus: dataFormatataDus,
@@ -107,8 +126,10 @@ export class TabelCautareZboruri {
         adulti: this.adulti,
         copii: this.copii
       };
-
+  
+      this.cautareZboruri.emit();
       this.router.navigate(['/rezultateCautare'], { queryParams });
     });
   }
+  
 }

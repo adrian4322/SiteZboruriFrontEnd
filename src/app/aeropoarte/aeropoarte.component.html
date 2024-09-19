@@ -3,6 +3,7 @@
     [(ngModel)]="valoareInput"    
     (input) = "inputCautareAeroport($event)"
     (focus)="afisareAeropoarte = true"
+    class="form-control"
     >
     <div *ngIf="afisareAeropoarte" class="meniuAeropoarte">
         <div *ngFor="let aeroport of aeropoarteFiltrate" (click)="selectAeroport(aeroport)">

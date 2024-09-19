@@ -1,17 +1,23 @@
-<div class="loader-wrapper" *ngIf="seIncarcaPagina">
-  <span class="loader"></span>
-</div>
-<div class="header" *ngIf="!seIncarcaPagina">
-  <div id="numeUtilizator">
-    <span>  <img style="margin-left:20px; margin-top: 10px;" src="../../../assets/logoBun.png" width="100" height="60" alt="image">
-    </span>
-    <span><img src='../../assets/iconitaUtilizator.png' style="margin-left: 20px; margin-top: 10px;" width="70" height="60"></span><span>{{ username }} </span>
+
+<app-loader *ngIf="seIncarcaPagina"></app-loader>
+
+<div class="header bg-light py-2 px-3 shadow-sm d-flex justify-content-between align-items-center shadow-sm" *ngIf="!seIncarcaPagina">
+  <button type="button" class="btn btn-outline-danger" (click)="deconectare()">Logout</button>
+  <div id="numeUtilizator" class="d-flex align-items-center">
+      <span>
+          <img src="../../../assets/logoBun.png" width="100" height="60" alt="logo" class="me-3">
+      </span>
+      <span>
+          <img src='../../assets/iconitaUtilizator.png' width="70" height="60" alt="user icon" class="me-3">
+      </span>
+      <span class="fw-bold h5">{{ username }}</span>
   </div>
 </div>
 
+
 <div class="body" *ngIf="!seIncarcaPagina">
   <div class="tabel">
-    <app-tabel-cautare-zboruri></app-tabel-cautare-zboruri>
+    <app-tabel-cautare-zboruri (cautareZboruri)="afiseazaLoader()"></app-tabel-cautare-zboruri>
   </div>
   <div class="Filtre">
     <div class="sectiuneFiltre">
@@ -36,15 +42,15 @@
       <div class="optiuniEscala" *ngIf="zborDirect || zborCuEscala || zborCuMinimDouaEscale">
         <p>Escale</p>
         <div class="optiuneFiltre" *ngIf="zborDirect">
-          <input type="checkbox" id="fara-escala" class="styled-checkbox" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
+          <input type="checkbox" id="fara-escala"class="form-check-input" [(ngModel)]="zborDirect" (change)="aplicaFiltru()">
           <label for="fara-escala">Fără escală</label>
         </div>
         <div class="optiuneFiltre" *ngIf="zborCuEscala">
-          <input type="checkbox" id="1-escala" class="styled-checkbox" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
+          <input type="checkbox" id="1-escala" class="form-check-input" [(ngModel)]="zborCuEscala" (change)="aplicaFiltru()">
           <label for="1-escala">1 escală</label>
         </div>
         <div class="optiuneFiltre" *ngIf="zborCuMinimDouaEscale">
-          <input type="checkbox" id="2-plus-escalas" class="styled-checkbox" [(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
+          <input type="checkbox" class="form-check-input" id="2-plus-escalas"[(ngModel)]="zborCuMinimDouaEscale" (change)="aplicaFiltru()">
           <label for="2-plus-escalas">2 sau mai multe escale</label>
         </div>
       </div>
@@ -61,6 +67,9 @@
         </div>
       </div>
 
+      
+
+      <div *ngIf="!zborDusIntors">
       <div class="zbor" *ngFor="let zbor of dataFiltrata.slice(0,10)">
         <div class="zbor-info">
           <div class="zbor-detalii">
@@ -85,6 +94,51 @@
         </div>
       </div>
     </div>
+
+
+    
+    <div *ngIf="zborDusIntors">
+      <div class="zbor" *ngFor="let zbor of dataFiltrata.slice(0,10)">
+        <div class="zbor-info">
+
+          <div class="zbor-detalii">
+            <span class="timp">{{ zbor.legs[0].departure }}</span>
+            <span class="locatie">{{ zbor.legs[0].origin.city }}</span><br>
+            <span class="timp">{{ zbor.legs[0].arrival }}</span>
+            <span class="locatie">{{ zbor.legs[0].destination.city }}</span><br>
+          </div>
+          <div class="zbor-sageata">⟶</div>
+          
+          <div class="zbor-detalii">
+            <span class="timp">{{ zbor.legs[1].departure }}</span>
+            <span class="locatie">{{ zbor.legs[1].origin.city }}</span><br>
+            <span class="timp">{{ zbor.legs[1].arrival }}</span>
+            <span class="locatie">{{ zbor.legs[1].destination.city }}</span><br>
+          </div>
+        </div>
+    
+        <div class="zbor-durata">
+          <p>{{ zbor.legs[0].duration }}</p>
+          <p *ngIf="zbor.legs[0].segments.length == 1">Zbor direct</p>
+          <p *ngIf="zbor.legs[0].segments.length == 2">{{ zbor.legs[0].segments.length - 1 }} escală</p>
+          <p *ngIf="zbor.legs[0].segments.length > 2">{{ zbor.legs[0].segments.length - 1 }} escale</p>
+    
+          <p>{{ zbor.legs[1].duration }}</p>
+          <p *ngIf="zbor.legs[1].segments.length == 1">Zbor direct</p>
+          <p *ngIf="zbor.legs[1].segments.length == 2">{{ zbor.legs[1].segments.length - 1 }} escală</p>
+          <p *ngIf="zbor.legs[1].segments.length > 2">{{ zbor.legs[1].segments.length - 1 }} escale</p>
+          <p>{{ zbor.legs[0].segments[0].marketingCarrier.name }}</p>
+        </div>
+    
+        <div class="zbor-pret">
+          <div class="pretul">{{ zbor.price.formatted }}</div>
+        </div>
+      </div>
+    </div>
+    
+
   </div>
+ </div>
 </div>
 <router-outlet></router-outlet>
+
