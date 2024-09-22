@@ -1,27 +1,50 @@
-# FrontEnd
+# FrontEnd pentru Căutarea Zborurilor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+Acest proiect este o aplicație Angular, Spring Boot pentru căutarea zborurilor în funcție de o dată specifică. Utilizatorul poate sorta zborurile după timp, dată și preț, și le poate filtra în funcție de numărul de escale. De asemenea, utilizatorul poate selecta atât zboruri dus, cât și zboruri dus-întors. Aplicația se conectează la un back-end REST API creat cu Spring Boot pentru autentificare și înregistrare, folosind o bază de date PostgreSQL rulând într-un container Docker.
 
-## Development server
+Am utilizat un API extern pentru a prelua datele despre zboruri.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tehnologii utilizate
 
-## Code scaffolding
+Angular - pentru partea de front-end.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Spring Boot - pentru partea de back-end (REST API).
 
-## Build
+API extern - pentru preluarea datelor despre zboruri.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+PostgreSQL - baza de date utilizată, rulată într-un container Docker.
 
-## Running unit tests
+JWT (JSON Web Tokens) - pentru autentificare și gestionarea sesiunilor de utilizator.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Docker - pentru gestionarea bazei de date PostgreSQL într-un container.
 
-## Running end-to-end tests
+## Pasul 1: Cloneaza proiectul
+```bash
+git clone https://github.com/utilizator/proiect-angular-zboruri.git
+cd proiect-angular-zboruri
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Pasul 2: instalare npm
+```bash
+npm install
+```
 
-## Further help
+## Pasul 3: Configurare back-end
+Docker Setup pentru PostgreSQL: Creează un container Docker pentru PostgreSQL folosind următoarea comandă:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+docker run --name Utilizatori -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=Utilizatori -d -p 5432:5432 postgres
+
+```
+Configurarea aplicației Spring Boot:
+
+Link pentru backend: https://github.com/adrian4322/SiteZboruriBackEnd
+
+Asigură-te că API-ul REST creat cu Spring Boot este configurat pentru a comunica cu containerul PostgreSQL.
+Pornește aplicația Spring Boot. Aceasta va fi disponibilă pe un port configurat http://localhost:8080.
+
+## Pasul 4: porneste site-ul
+
+```bash
+ng serve
+```
